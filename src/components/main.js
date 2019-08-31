@@ -1,25 +1,31 @@
-import React, { useEffect } from 'react';
-import axios from './axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const main = (props) => {
+const Main = (props) => {
 
-    //const [count] = useState();
+    const[theData, settheData] = useState({
+        id:'',
+        title:'',
+    });
 
-    useEffect(() => {
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos/1")
+      .then((response)=>{
+         console.log(response.data)
+          settheData({
+              id: response.data.id,
+              title:response.data.title,
+          })
+      });
+  });
+  return (
+    <div>
+        <h5>{theData.title}</h5>
+        <h5>{theData.id}</h5>
+    </div>
+) 
+};
 
-axios.get("https://jsonplaceholder.typicode.com/todos/1")
-    .then((response)=>{
-        console.log(response);
-    })
+export default Main;
 
-
-    })
-
-    return (
-        <div>
-            <h1>Hi</h1>
-        </div>
-    )
-}
-
-export default main;
